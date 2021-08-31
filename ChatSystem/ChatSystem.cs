@@ -112,7 +112,7 @@ namespace ChatSystem
                 exception = e;
                 return EResult.exception;
             }
-            //通信の確立
+            // 通信の確立
             try
             {
                 _chatSocket = _connectSocet.Accept();
@@ -159,7 +159,7 @@ namespace ChatSystem
         public EResult Receive(Buffer buffer)
         {
             if (_chatSocket != null)
-            {   // 初期化済み
+            { // 初期化済み
                 int bytesRec;
                 try
                 {
@@ -192,22 +192,12 @@ namespace ChatSystem
                 _chatSocket.Send(buffer.content, buffer.length, SocketFlags.None);
             }
             catch (SocketException e)
-            {   // ソケットへのアクセスを試行しているときにエラーが発生しました。
+            { // ソケットへのアクセスを試行しているときにエラーが発生しました。
                 _chatSocket = null;
                 _connectSocet = null;
                 socketException = e;
                 return EResult.socketException;
             }
-            /*
-            catch (ArgumentNullException e)
-            {
-                throw;
-            }
-            catch (ObjectDisposedException e)
-            {
-                throw;
-            }
-            */
             return EResult.success;
         }
         public void ShutDownColse()
